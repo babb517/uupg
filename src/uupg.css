@@ -1,0 +1,33 @@
+
+
+/* bulk object placement */
+#theForm {
+  position: relative;
+  width: 940px;
+  margin: 0px auto;
+  font-size: 0.8em;
+}
+
+
+#genButton {
+		width:80%;
+		height:30px;
+		margin-left:auto;
+		margin-right:auto;
+}
+
+#box-pass,#box-salt 
+{ border-color: #4a4; }
+#box-pass h2,#box-salt h2 
+{ background: #4a4; }
+
+#box-policy,#box-manual,#box-forbidden 
+{ border-color: #060; }
+#box-policy h2,#box-manual h2, #box-forbidden h2 
+{ background: #060; }
+
+#box-key { border-color: #4D94FF; }
+#box-key h2 { background: #4D94FF; }
+
+#box-uup { border-color: #0066FF; }
+#box-uup h2 { background: #0066FF; }

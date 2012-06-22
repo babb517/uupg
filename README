@@ -1,0 +1,58 @@
+====================================================
+//== The Universally Unique Password Generators ==//
+====================================================
+
+	Copyright (c) 2012 Joseph Babb ( jbabb1 -at- asu -dot -edu )
+
+    This file is part of the Universally Unique Password Generator.
+
+    The Universally Unique Password Generator is free software: you can 
+    redistribute it and/or modify it under the terms of the GNU General 
+    Public License as published by the Free Software Foundation, either 
+    version 3 of the License, or (at your option) any later version.
+
+    The Universally Unique Password Generator is distributed in the hope 
+    that it will be useful, but WITHOUT ANY WARRANTY; without even the 
+    implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+    See the GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with The Universally Unique Password Generator.  If not, see 
+    <http://www.gnu.org/licenses/>.
+   
+   
+=====================================================
+	
+The Universally Unique Password Generator (UUPG) allows you to use a 
+single password for virtually every website securely. It uses the password 
+you input (which is never sent to any other computer or stored) along with 
+some string unique to ever website (such as its name) to generate a unique 
+password for every website which can then be copied and pasted to the 
+website's password prompt. 
+
+As the UUPG doesn't rely on saving your passwords and instead generates 
+them on-the-go it is more secure and more mobile than other solutions, such 
+as a password keychain. Additionally, the program is implemented using HTML 
+and Javascript, so it can be run on any modern web browser regardless of 
+operating systems (even your phones) and accessed over the internet as a 
+website.
+
+Currently the UUPG is hosted at http(s)://origin.dyndns-server.com/uupg/uupg.html. 
+As previously mentioned, your password _never_ leaves your computer 
+(all calculations are done client side). The UUPG is open source and 
+available  under the GNU GPL (see src/COPYING for details). I encourage you 
+to keep an offline copy of the UUPG with you in case you are unable to
+access the online version for any reason.
+
+Unfortunatly website's have grown accustomed to providing a strict password 
+policy which is often required in order to prevent users from selecting passwords 
+that are too weak or because the website is not using the industry standard 
+security techniques and instead are simply storing passwords in an unsecure 
+location. Due to this, it is neccessary to ensure that the generated password 
+conforms to each of the website's policies. The current version of the UUPG 
+utilizes an XML file in order to specify these for various website's password 
+policies to ease the burden of remembering each of them. This is in the 
+policies.xml file provided with the source code. The online version uses a
+similar XML which has been pre-populated with a number of common websites.
+
+Please contact me at jbabb1 -at- asu -dot- edu with any questions you have.

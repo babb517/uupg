@@ -1,0 +1,260 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+		
+<!--
+	Copyright 2012 Joseph Babb (jbabb1 -at- asu -dot- edu)
+     
+    This file is part of the Universally Unique Password Generator.
+
+    The Universally Unique Password Generator is free software: you can 
+    redistribute it and/or modify it under the terms of the GNU General 
+    Public License as published by the Free Software Foundation, either 
+    version 3 of the License, or (at your option) any later version.
+
+    The Universally Unique Password Generator is distributed in the hope 
+    that it will be useful, but WITHOUT ANY WARRANTY; without even the 
+    implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+    See the GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with The Universally Unique Password Generator.  If not, see 
+    <http://www.gnu.org/licenses/>.
+    
+-->
+        
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<!-- TODO Remove no Cache -->
+	<meta http-equiv="cache-control" content="max-age=0" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <!-- -->
+    
+	<title>Universally Unique Password Generator</title>
+    <link rel="stylesheet" type="text/css" href="src/root.css"/>	
+	<link rel="stylesheet" type="text/css" href="src/uupg.css"/>		
+    <script type="text/javascript">JSCLASS_PATH = 'src/include/js-class'</script>		<!-- JS.Class Library -->
+	<script type="text/javascript" src="src/include/js-class/loader-browser.js"></script>
+	<script type="text/javascript" src="src/include/sjcl/sjcl.js"></script>				<!-- Standford Javascript Crypt Library -->
+	<script type="text/javascript" src="src/include/sjcl/codecString.js"></script>
+	<script type="text/javascript" src="src/include/sjcl/bitArray.js"></script>
+	<script type="text/javascript" src="src/include/sjcl/codecBase64.js"></script>
+	<script type="text/javascript" src="src/include/sjcl/codecHex.js"></script>
+	<script type="text/javascript" src="src/include/sjcl/sha256.js"></script>
+    <script type="text/javascript" src="src/include/JQuery.js"></script>				<!-- JQuery Library -->
+    <script type="text/javascript" src="src/ascii.js"></script>							<!-- Useful ASCII Functions -->
+	<script type="text/javascript" src="src/form.js"></script>							<!-- Form Handler (Courtesy of SJCL) -->
+	<script type="text/javascript" src="src/uupg.js"></script>							<!-- Unique Password Generator -->
+    
+</head>
+<body onload="loaded()">
+<div class="wrapper">
+    <h1>Universally Unique Password Generator</h1>  
+    <div class="header"> 
+        <p> 
+            The Universally Unique Password Generator allows you to use a single password for every website on the internet <b>securely!</b>!
+            Simply provide the password you want to use, some string unique to the website (like its name!), and select the site's password policy
+            from the drop down or enter it manually if it isn't there. Your password and salt (the website's name, for example) is then used to generate
+            a unique password for the website!
+        </p> 
+        <p>
+            Everything is done entirely on you computer, <b>None of your information ever leaves it!</b>
+        </p>
+    </div>
+     
+    <form id="theForm" onsubmit="return false;">
+        <!-- Password and Seed parameters -->
+        <table> 
+            <tr class="row">
+                <!-- Password -->
+                <td class="column"> 
+                    <div class="box" tag id="box-pass">
+                        <h2>Password</h2>
+                        <div class="section">
+                            <input type="password" class="wide" name="password1" id="password1" autocomplete="off" tabindex="1" />
+                            <input type="password" class="wide" name="password2" id="password2" autocomplete="off" tabindex="2" />
+                            <p class="explanation"> Choose a strong password that you will remember. This password and the salt you
+                            provide will be used to generate the unique password for the website of your choice.</p>
+                        </div>
+                    </div>
+                    
+                </td>
+                
+                <!-- Salt -->
+                <td class="column">
+                    <div class="box" id="box-salt">
+                        <h2>Salt</h2>
+                        <div class="section">
+                            <input type="password" class="wide" name="salt1" id="salt1" autocomplete="off" tabindex="3"/>
+                            <input type="password" class="wide" name="salt2" id="salt2" autocomplete="off" tabindex="4"/>
+                        </div>
+                        <p class="explanation"> 
+                            Choose a salt Such as the name of a website, like 'newegg' or 'google'.
+                            This will be used to generate and format your unique password.
+                        </p>
+                    </div>
+                </td>
+                
+                <!-- Alogrithm -->
+                <td class="column">
+                    <div class="box" id="box-alg" >
+                        <h2>Algorithm </h2>
+                        <span class="label"> Algorithm: </span>
+                        <span class="options"> 
+                            <input type="radio" name="algorithm" value="complex" checked="checked" id="alg-cmplx" />
+                            <label for="alg-cmplx">Complex</label>
+                            <input type="radio" name="algorithm" value="simple" id="alg-smpl" />
+                            <label for="alg-smpl">Simple</label>
+                        </span>
+                        <br style="clear:both;" />
+                        <p class="explanation">
+                            The complex algorithm generates a longer password by splitting the initial hash into bits [0,127] and [128,256], 
+                            hashing them again, and concatenating the results.
+                        </p>
+                    </div>
+                </td>
+    
+            </tr>
+            
+        <!-- Formatting Options -->
+            <tr class="row">
+                <td class="column">
+                    <div class="box" id="box-policy">
+                        <h2>Password Policy</h2>
+                        <div class="section">
+                            <select type="combo" class="wide" name="policy" id="policy" autocomplete="on" tabindex="4" onchange="updatePolicy()">
+                                <option value="0">Manual</option>
+                            </select>
+                        </div>
+                        <p class="explanation">
+                         Select the website you would like to format the resulting password for or select 'Manual' if the
+                         website you're looking for isn't on the list.
+                        </p>
+                        <div>
+                            <button type="submit" class="button" id="genButton" name="genButton" onclick="calcUUP()" >
+                           		<label for="genButton">Generate</label>
+                            </button>
+                        </div>
+                    </div>
+                </td>
+                <td class="column" >
+                    <div class="box" id="box-manual" >
+                        <h2>Manual Policy Options</h2>
+                        <div>
+                            <span class="label"> <label for="pwmaxlen">Max Length:</label> </span>
+                            <span class="options"> 
+                                <input type="text" class="smallnum" name="maxlen" id="maxlen"  /> 
+                            </span>
+                            <div style="clear:both;"></div>
+                        </div>
+                        
+                        <div >
+                            <span class="label"> Special Characters: </span> 
+                            <span class="options">
+                                <input type="radio" name="specials" value="auto" id="specials-auto" checked="checked"  />
+                                <label for="specials-auto">Auto</label>
+                                <input type="radio" name="specials" value="include" id="specials-in"  />
+                                <label for="specials-inc">Include</label>
+                                <input type="radio" name="specials" value="exclude" id="specials-ex"  />
+                                <label for="specials-ex">Exclude</label>
+                            </span>
+                            <div style="clear:both;"></div>
+                        </div>
+                     
+                        <div >
+                            <span class="label">Numbers: </span>
+                            <span class="options">
+                                <input type="radio" name="numbers" value="auto" id="numbers-auto" checked="checked" />
+                                <label for="numbers-auto">Auto</label>
+                                <input type="radio" name="numbers" value="include" id="numbers-in"  />
+                                <label for="numbers-inc">Include</label>
+                                <input type="radio" name="numbers" value="exclude" id="numbers-ex"  />
+                                <label for="numbers-ex">Exclude</label>
+                            </span>
+                            <br style="clear:both;" />
+                        </div>
+                        
+                        <div >
+                            <span class="label">Uppercase Letters: </span>
+                            <span class="options">
+                                <input type="radio" name="uppercase" value="auto" id="uppercase-auto" checked="checked" />
+                                <label for="uppercase-auto">Auto</label>
+                                <input type="radio" name="uppercase" value="include" id="uppercase-in"  />
+                                <label for="uppercase-inc">Include</label>
+                                <input type="radio" name="uppercase" value="exclude" id="uppercase-ex"  />
+                                <label for="uppercase-ex">Exclude</label>
+                            </span>
+                            <br style="clear:both;" />
+                        </div>
+                        
+                        <div >
+                            <span class="label">Lowercase Letters: </span>
+                            <span class="options">
+                                <input type="radio" name="lowercase" value="auto" id="lowercase-auto" checked="checked" />
+                                <label for="lowercase-auto">Auto</label>
+                                <input type="radio" name="lowercase" value="include" id="lowercase-in"  />
+                                <label for="lowercase-inc">Include</label>
+                                <input type="radio" name="lowercase" value="exclude" id="lowercase-ex"  />
+                                <label for="lowercase-ex">Exclude</label>
+                            </span>
+                            <br style="clear:both;" />
+                        </div>
+                        
+                        <!--
+                            <p class="explanation">If manual configuration is needed, you should select the options
+                                enforced by the password policy. Auto will not enforce a specific policy.</p>
+                        -->
+                        
+                    </div>
+                </td>
+                
+                <!-- Forbidden Characters -->
+                <td class="column" >
+                    <div class="box" id="box-forbidden" >
+                        <h2>Forbidden Characters</h2>
+                        <input type="text" class="wide" name="forbidden" id="forbidden" autocomplete="off" />
+                        <br style="clear:both;" />
+                        <p class="explanation"> These are characters which cannot appear in the generated password. 
+                        Any such characters are removed from the final password in a determinstic fashion. </p>
+                    </div>
+                </td>
+            </tr>   
+           
+        <!-- Key Output (Hex) -->
+            <tr >
+                <td colspan="3">
+                    <div class="box" id="box-key">
+                        <h2>Encrypted Key  </h2>
+                        <label for="key16">Hex:</label>
+                        <textarea id="key16" name="key16" class="hex" rows="2" autocomplete="off" readonly="readonly" resize="none"></textarea>
+                        <label for="key64">Base64:</label>
+                        <textarea id="key64" name="key64" class="base64" rows="2" autocomplete="off" readonly="readonly" resize="none"></textarea>
+                        <p class="explanation"> This is the key computed from your password and salt. </p>
+                    </div>
+                </td>
+            </tr> 
+        
+        <!-- Key Output (Formatted) -->
+            <tr>
+                
+                <!-- cipher output -->
+                <td colspan="3">
+                    <div class="box" id="box-uup">
+                        <h2>Unique Password</h2>
+                        <textarea id="fmtkey" name="fmtkey" class="cipher" rows="2" autocomplete="off" readonly="readonly" resize="none"></textarea>
+                        <p class="explanation"> This is the base64 key after applying a deterministic algorithm to enforce all formatting constraints.</p>
+                    </div>
+                </td> <!-- End Key Column -->
+            </tr> <!-- End Key Output Row -->
+        </table>
+      </form>
+      <div class="push"></div>
+	</div>
+    
+    <div class="footer">
+			<p>Copyright &copy; 2012 Joseph Babb &mdash; (jbabb1 -at- asu -dot- edu) &mdash; <a href="../meta/src/uupg.rar">Source Download</a> &mdash; <a href="https://github.com/babb517/uupg">GitHub</a></p>
+	</div>
+</body>
+</html>

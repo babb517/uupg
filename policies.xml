@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+		
+<!--
+	Copyright 2012 Joseph Babb (jbabb1 -at- asu -dot- edu)
+     
+    This file is part of the Universally Unique Password Generator.
+
+    The Universally Unique Password Generator is free software: you can 
+    redistribute it and/or modify it under the terms of the GNU General 
+    Public License as published by the Free Software Foundation, either 
+    version 3 of the License, or (at your option) any later version.
+
+    The Universally Unique Password Generator is distributed in the hope 
+    that it will be useful, but WITHOUT ANY WARRANTY; without even the 
+    implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+    See the GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with The Universally Unique Password Generator.  If not, see 
+    <http://www.gnu.org/licenses/>.
+    
+-->
+        
+
+<!-- 
+	<specials> !&quot;#$%&amp;&#39;()*+`-./,:;&lt;=&gt;?@[\\]^_'{|}~</specials>
+-->
+<policies>
+
+	<policy name="Amazon">
+		<!-- 
+			Amazon is one of the only ones that recognize 
+			how retarded password policies are... 
+		-->
+	</policy>
+
+	<policy name="ASU">
+		<length>14</length>
+		<numbers>include</numbers>
+		<lowercase>include</lowercase>
+		<uppercase>include</uppercase>
+		<specials>include</specials>
+		<forbidden> &quot;#$&amp;&#39;()`,;&lt;&gt;@[\]^'{|}~</forbidden>
+	</policy>
+	
+	<policy name="Chase">
+		<length>32</length>
+		<lowercase>include</lowercase>
+		<numbers>include</numbers>
+		<specials>exclude</specials>
+	</policy>
+	
+	<policy name="EasyChair">
+		<!-- 
+			EasyChair doesn't have a password policy.
+			However, I know for a fact they don't hash passwords.
+		-->
+	</policy>
+	
+	<policy name="Facebook">
+		<!-- 
+			Facebook is one of the only ones that recognize 
+			how retarded password policies are... 
+		-->
+	</policy>
+	
+	<policy name="GitHub">
+		<lowercase>include</lowercase>
+		<numbers>include</numbers>
+	</policy>
+	
+	<policy name="Google">
+		<!-- 
+			Google is one of the only ones that recognize 
+			how retarded password policies are... 
+		-->
+	</policy>
+	
+	<policy name="Netflix">
+		<length>60</length>
+	</policy>
+	
+	<policy name="Newegg">
+		<!-- 
+			Amazon is one of the only ones that recognize 
+			how retarded password policies are... 
+		-->
+	</policy>
+	
+	<policy name="PayPal">
+		<length>20</length>
+	</policy>
+	
+	<policy name="Wells Fargo">
+		<length>14</length>
+		<lowercase>include</lowercase>
+		<specials>include</specials>
+		<numbers>include</numbers>
+	</policy>
+	
+
+	
+	
+</policies>
