@@ -83,7 +83,7 @@
 	
 	<policy name="Newegg">
 		<!-- 
-			Amazon is one of the only ones that recognize 
+			Newegg is one of the only ones that recognize 
 			how retarded password policies are... 
 		-->
 	</policy>
