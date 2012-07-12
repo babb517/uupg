@@ -57,6 +57,9 @@
 			However, I know for a fact they don't hash passwords.
 		-->
 	</policy>
+	<policy name="Ebay">
+		<length>20</length>
+	</policy>
 	
 	<policy name="Facebook">
 		<!-- 
