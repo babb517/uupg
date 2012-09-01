@@ -79,6 +79,14 @@
 			how retarded password policies are... 
 		-->
 	</policy>
+
+	<policy name="Mail.com">
+		<length>16</length>
+		<lowercase>include</lowercase>
+		<numbers>include</numbers>
+		<uppercase>include</uppercase>
+		<specials>include</specials>
+	</policy>
 	
 	<policy name="Netflix">
 		<length>60</length>
