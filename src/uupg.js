@@ -152,10 +152,10 @@ function calcUUP() {
 	
 	
 	
-	/* Make sure th we have mching informion */
+	/* Make sure th we have matching informion */
 	if (v.password1 != v.password2) {
-		/* Passwords don't mch... crap. */
-		error("The provided passwords don't mch.");  
+		/* Passwords don't match... crap. */
+		error("The provided passwords don't match.");  
 		
 		v.password1 = "";
 		v.password2 = "";
@@ -168,7 +168,7 @@ function calcUUP() {
 	} else if (v.salt1 != v.salt2) {
 		
 		// Too much pepper with our salts...
-		error("The provided salts don't mch.");
+		error("The provided salts don't match.");
 		
 		v.salt1 = "";
 		v.salt2 = "";
