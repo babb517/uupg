@@ -99,16 +99,16 @@
 		-->
 	</policy>
 
-	<policy name="Mail.com">
-		<length>16</length>
-		<numbers>include</numbers>
-		<lowercase>include</lowercase>
-		<uppercase>include</uppercase>
-		<specials>include</specials>
-	</policy>
-	
 	<policy name="PayPal">
 		<length>20</length>
+	</policy>
+
+	<policy name="Taleo">
+		<length>32</length>
+                <lowercase>include</lowercase>
+                <numbers>include</numbers>
+                <uppercase>include</uppercase>
+                <specials>include</specials>
 	</policy>
 	
 	<policy name="Wells Fargo">
