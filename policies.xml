@@ -110,6 +110,14 @@
                 <uppercase>include</uppercase>
                 <specials>include</specials>
 	</policy>
+
+	<policy name="Ting">
+		<numbers>include</numbers>
+		<lowercase>include</lowercase>
+		<uppercase>include</uppercase>
+		<specials>include</specials>
+		<forbidden> &quot;#&amp;&#39;`;&lt;&gt;[]'{}~=+</forbidden>
+	</policy>
 	
 	<policy name="Wells Fargo">
 		<length>14</length>
@@ -117,8 +125,5 @@
 		<specials>include</specials>
 		<numbers>include</numbers>
 	</policy>
-	
-
-	
 	
 </policies>
